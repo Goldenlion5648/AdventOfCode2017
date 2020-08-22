@@ -1015,6 +1015,7 @@ def addOrSub(word, num):
 
 instructs = a.split("\n")
 print(instructs)
+maxVal = -10000
 for i in instructs:
     i = i.split()
     print(i)
@@ -1047,7 +1048,12 @@ for i in instructs:
             letters[i[0]] += addOrSub(i[1], int(i[2]))
 
     print(letters)
+    if len(letters) > 0:
+        maxVal = max(maxVal, letters.most_common(1)[0][1])
 print(max(letters))
 print(letters[min(letters)])
 # letters.sort()
 print(letters.most_common(1))
+print(maxVal)
+#part 1 done in about 25:00 (copy paste error)
+#part 2 done in 2:00
