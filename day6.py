@@ -1,3 +1,4 @@
+from collections import Counter
 a = "11 11  13  7   0   15  5   5   4   4   1   1   7   1   15  11"
 # a = "0 2 7 0"
 a = list(map(int, a.split()))
@@ -13,6 +14,8 @@ def findMin(a):
             maxSeen = a[i]
     return pos
 pos = findMin(a)
+count = 0
+timeMap = dict()
 while True:
     print("pos", pos)
     num = a[pos]
@@ -23,10 +26,15 @@ while True:
         pos = (pos + 1) % len(a)
         num -= 1
     if tuple(a) in seen:
+        print("time", count - timeMap[tuple(a)])
         break
     else:
         seen.add(tuple(a))
+        timeMap[tuple(a)] = count
     print(a)
     pos = findMin(a)
+    count += 1
 print(len(seen))
 #part 1 done in 10:05
+
+#part 2 done in 8:15
