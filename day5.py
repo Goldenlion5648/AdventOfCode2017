@@ -1069,10 +1069,17 @@ while pos < len(b):
     try:
         old = pos
         pos += b[pos]
-        b[old] += 1
+        if (b[old]) >= 3:
+            b[old] -= 1
+        else:
+            b[old] += 1
         total += 1
         # print(pos)
+        # print(b)
     except:
         break
 print (total)
+print(b)
 #part 1 done in 5:33
+
+#part 2 done in 4:48
