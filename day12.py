@@ -1999,11 +1999,12 @@ a='''0 <-> 480, 1750
 1998 <-> 76, 1237, 1252
 1999 <-> 1751'''
 # a='''0 <-> 2
-# 1 <-> 1
+# 1 <-> 1, 7
 # 2 <-> 0, 3, 4
 # 3 <-> 2, 4
 # 4 <-> 2, 3, 6
 # 5 <-> 6
+# 7 <-> 1, 7
 # 6 <-> 4, 5'''
 
 connections = dict()
@@ -2015,27 +2016,45 @@ for i in a.split("\n"):
 
 print(connections)
 stack += connections[0]
+connections.pop(0)
 visited.append(0)
 print(stack)
-
-while len(stack) > 0:
-    pos = 0
-    # for j in stack:
-    print("at pos", stack[pos])
-    # for i in stack[pos]:
-    # if stack[pos] not in visited:
-    for i in connections[stack[pos]]:
-        print("i", i)
-        if i not in visited:
-            stack.append(i)
-            visited.append(i)
-            print("added")
-    stack.pop(0)
-    print("after", stack)
+count = 0
+while len(connections) > 0:
+    while len(stack) > 0:
+        pos = 0
+        # for j in stack:
+        print("at pos", stack[pos])
+        # for i in stack[pos]:
+        if stack[pos] in connections:
+            for i in connections[stack[pos]]:
+                print("i", i)
+                if i not in visited:
+                    stack.append(i)
+                    visited.append(i)
+                    print("added")
+            connections.pop(stack[pos])
+        else:
+            visited.append(stack[pos])
+        stack.pop(0)
+        print("after", stack)
+        # break
+    count += 1
+    print(count)
+    print(connections)
+    if len(connections) > 0:
+        stack += connections[list(connections.keys())[0]]
+        print("added at end", connections[list(connections.keys())[0]])
+    else:
+        print("count", count)
+        break
+# print("other2", other2)
     # break
-
 # print(stack)
-print(connections)
-print(visited)
-print(len(visited))
+# print(connections)
+# print(visited)
+# print(len(visited))
+# print(other)
+
 #part 1 done in 26:49
+#part 2 done in about 30 minutes
