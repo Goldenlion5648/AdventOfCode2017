@@ -226,6 +226,8 @@ cur = board[posY][posX]
 letters = []
 direction = 2
 count = 0
+steps = 1
+shouldStop = False
 while True:
     cur = board[posY][posX]
     if direction == 0:
@@ -233,8 +235,15 @@ while True:
             #print(cur)
             if cur.isalpha():
                 letters.append(cur)
+                print(cur, "added")
+            if "H" in letters:
+                shouldStop = True
+                break
             posY -= 1
+            steps += 1
+            print(steps)
             if posY < 0:
+                shouldStop = True
                 break
             cur = board[posY][posX]
     elif direction == 1:
@@ -242,7 +251,15 @@ while True:
             #print(cur)
             if cur.isalpha():
                 letters.append(cur)
+                print(cur, "added")
+            if "H" in letters:
+                shouldStop = True
+                break
             posX += 1
+            steps += 1
+            print(steps)
+
+
             cur = board[posY][posX]
 
 
@@ -252,7 +269,13 @@ while True:
             #print(cur)
             if cur.isalpha():
                 letters.append(cur)
+                print(cur, "added")
+            if "H" in letters:
+                shouldStop = True
+                break
             posY += 1
+            steps += 1
+            print(steps)
             cur = board[posY][posX]
 
     elif direction == 3:
@@ -260,12 +283,28 @@ while True:
             #print(cur)
             if cur.isalpha():
                 letters.append(cur)
+                print(cur, "added")
+            if "H" in letters:
+                print("steps", steps)
+                shouldStop = True
+                break
             posX -= 1
+            steps += 1
+            print(steps)
+
+
             cur = board[posY][posX]
             if posX < 0:
+                shouldStop = True
                 break
 
+    if shouldStop:
+        break
 
+    if "H" in letters:
+        print("outside ", steps)
+        shouldStop = True
+        break
     # print(posX, posY)
     # print("cur tile", cur)
     if posX + 1 < len(board[0]) and board[posY][posX + 1] != " " and direction != 3:
@@ -282,6 +321,8 @@ while True:
         posY -= 1
     else:
         break
+    steps += 1
+
     
     count +=1
     # print("dir", direction)
@@ -293,6 +334,7 @@ while True:
     print(letters)
 
 print("".join(letters))
+print(steps)
 #GINOWKYXH
 #part 1 done in 32:51
-
+#part 2 done in 18:50, a few incorrect guesses lead to penalty time
