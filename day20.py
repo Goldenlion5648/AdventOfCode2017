@@ -1027,7 +1027,10 @@ for i in a:
     list(map(int, line[2].split(",")))))
     # print(pos)
 
-for i in range(2000):
+
+for i in range(3000):
+    badSpots = set()
+    allSpots = set()
     for p in points:
         p.vel[0] += p.acc[0]
         p.vel[1] += p.acc[1]
@@ -1035,6 +1038,20 @@ for i in range(2000):
         p.pos[0] += p.vel[0]
         p.pos[1] += p.vel[1]
         p.pos[2] += p.vel[2]
+        curPos = tuple(p.pos)
+        if curPos in allSpots:
+            badSpots.add(curPos)
+
+        allSpots.add(curPos)
+    z = 0
+    while z < len(points):
+        if tuple(points[z].pos) in badSpots:
+            points.pop(z)
+        else:
+            z += 1
+    print("remaining points:", len(points))
+
+
 minDist = 100000000000
 pos = 0
 cur = 0
@@ -1048,3 +1065,4 @@ for p in points:
     cur += 1
 print(pos)
 #part 1 done in 20:14, fiddled with regex for the first few minutes
+#part 2 done in 5:09, no issues
